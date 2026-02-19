@@ -11,6 +11,12 @@ export type VerifyOtpPayload = {
     code: string;
 };
 
+export type LoginOtpVerifyPayload = VerifyOtpPayload & {
+    deviceId: string;
+    deviceName: string;
+    platform: string;
+};
+
 export type SignupPayload = {
     username: string;
     password: string;
