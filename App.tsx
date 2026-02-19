@@ -4,7 +4,7 @@ import {
 } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import store from './src/features/store';
-import { ThemeProvider } from './src/context/ThemeContext';
+import { ThemeProvider } from './src/theme/ThemeContext';
 import Routes from './src/navigations/Routes';
 
 function App() {

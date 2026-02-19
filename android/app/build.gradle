@@ -79,9 +79,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.sampleboilerplate"
+    namespace "com.papergenius"
     defaultConfig {
-        applicationId "com.sampleboilerplate"
+        applicationId "com.papergenius"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

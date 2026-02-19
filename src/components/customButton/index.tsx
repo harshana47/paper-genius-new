@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React, { JSX } from 'react';
 import { ThemeContextType, useTheme } from '../../theme/ThemeContext';
 import { createStyles } from './styles';
@@ -23,7 +23,7 @@ const CustomButton = (props: CustomButtonProps) => {
             style={[
                 props.disableState
                     ? styles.disableBtn
-                    : props.type == 'primary'
+                    : props.type === 'primary'
                         ? styles.primaryBtn
                         : styles.secondaryBtn,
                 { width: props.width || '100%', borderRadius: props.borderRadius || 10 },
@@ -33,7 +33,7 @@ const CustomButton = (props: CustomButtonProps) => {
             {props.loadingState ? (
                 <ActivityIndicator
                     size="small"
-                    color={props.type == 'primary' ? colors.background : colors.primary}
+                    color={props.type === 'primary' ? colors.background : colors.primary}
                 />
             ) : (
                 <>
@@ -43,7 +43,7 @@ const CustomButton = (props: CustomButtonProps) => {
                             globalStyles.h4,
                             props.disableState
                                 ? styles.disableBtnText
-                                : props.type == 'primary'
+                                : props.type === 'primary'
                                     ? styles.primaryBtnText
                                     : styles.secondaryBtnText,
                         ]}>

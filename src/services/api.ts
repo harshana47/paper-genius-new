@@ -121,11 +121,19 @@ privateInstance.interceptors.response.use(
 
 
 const getAccessToken = async () => {
-    const data: any = await AsyncStorage.getItem('UserDetail');
-    const accessToken: string = await JSON.parse(data).token;
-    if (accessToken) {
-        return accessToken;
-    } else {
+    const rawSession = await AsyncStorage.getItem('UserDetail');
+    if (!rawSession) {
+        return null;
+    }
+
+    try {
+        const parsedSession = JSON.parse(rawSession);
+        const accessToken = parsedSession?.token;
+        if (typeof accessToken === 'string' && accessToken.length > 0) {
+            return accessToken;
+        }
+        return null;
+    } catch {
         return null;
     }
 };

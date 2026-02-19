@@ -55,7 +55,7 @@ const userSlice = createSlice({
             state.currency = action.payload.data?.user?.country.currency_symbol;
             state.apiStatus = 'Success';
         });
-        builder.addCase(requestGetUser.rejected, (state: IUserState, action) => {
+        builder.addCase(requestGetUser.rejected, (state: IUserState) => {
             state.apiStatus = 'Failed';
         });
     },
