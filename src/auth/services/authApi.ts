@@ -524,10 +524,96 @@ export const verifyLoginOtp = async (
 
 export const signUp = async (payload: SignupPayload) => {
   try {
-    await authClient.post('/signup', payload);
+    await authClient.post('/auth/signup', payload);
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
-      throw new Error(getErrorMessage(error, 'Failed to signup.'));
+      logAuthRequestFailure('SIGNUP', error, {
+        username: payload.username,
+        tenantId: AUTH_TENANT_ID,
+      });
+
+      const normalizedError = new Error(
+        getErrorMessage(error, 'Failed to signup.'),
+      ) as Error & {
+        statusCode?: number;
+        responseData?: unknown;
+      };
+
+      normalizedError.statusCode = error.response?.status;
+      normalizedError.responseData = error.response?.data;
+      throw normalizedError;
+    }
+    throw error;
+  }
+};
+
+export const updateOptionalUserType = async (
+  accessToken: string,
+  userType: string,
+) => {
+  try {
+    await authClient.put(
+      '/me/optional/user-type',
+      { userType },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+  } catch (error: any) {
+    if (axios.isAxiosError(error)) {
+      logAuthRequestFailure('UPDATE_USER_TYPE', error, {
+        userType,
+        tenantId: AUTH_TENANT_ID,
+      });
+
+      const normalizedError = new Error(
+        getErrorMessage(error, 'Failed to update user type.'),
+      ) as Error & {
+        statusCode?: number;
+        responseData?: unknown;
+      };
+
+      normalizedError.statusCode = error.response?.status;
+      normalizedError.responseData = error.response?.data;
+      throw normalizedError;
+    }
+    throw error;
+  }
+};
+
+export const updateOptionalExamBoard = async (
+  accessToken: string,
+  examBoard: string,
+) => {
+  try {
+    await authClient.put(
+      '/me/optional/exam-board',
+      { examBoard },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+  } catch (error: any) {
+    if (axios.isAxiosError(error)) {
+      logAuthRequestFailure('UPDATE_EXAM_BOARD', error, {
+        examBoard,
+        tenantId: AUTH_TENANT_ID,
+      });
+
+      const normalizedError = new Error(
+        getErrorMessage(error, 'Failed to update exam board.'),
+      ) as Error & {
+        statusCode?: number;
+        responseData?: unknown;
+      };
+
+      normalizedError.statusCode = error.response?.status;
+      normalizedError.responseData = error.response?.data;
+      throw normalizedError;
     }
     throw error;
   }
